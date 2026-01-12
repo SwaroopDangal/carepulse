@@ -1,0 +1,319 @@
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+@custom-variant dark (&:is(.dark *));
+
+/* =========================================================
+   BASE STYLES
+   ========================================================= */
+@layer base {
+  * {
+    @apply border-gray-200;
+  }
+
+  body {
+    @apply bg-black text-white;
+  }
+}
+
+/* =========================================================
+   UTILITIES
+   ========================================================= */
+@layer utilities {
+  /* ===== Remove Scrollbar ===== */
+  .remove-scrollbar {
+    -ms-overflow-style: none; /* IE & Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .remove-scrollbar::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+
+  /* ===== Typography ===== */
+  .text-36-bold {
+    font-size: 36px;
+    line-height: 40px;
+    font-weight: 700;
+  }
+
+  .text-32-bold {
+    font-size: 32px;
+    line-height: 36px;
+    font-weight: 700;
+  }
+
+  .text-24-bold {
+    font-size: 24px;
+    line-height: 28px;
+    font-weight: 700;
+  }
+
+  .text-18-bold {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 700;
+  }
+
+  .text-16-semibold {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 600;
+  }
+
+  .text-16-regular {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+  }
+
+  .text-14-medium {
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 500;
+  }
+
+  .text-14-regular {
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 400;
+  }
+
+  .text-12-semibold {
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 600;
+  }
+
+  .text-12-regular {
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+  }
+
+  /* ===== Layout ===== */
+  .sidebar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    @apply w-full max-w-72 flex-col overflow-auto px-7 py-10;
+  }
+
+  .sidebar::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+
+  .left-sidebar {
+    @apply hidden lg:flex;
+  }
+
+  .right-sidebar {
+    @apply hidden xl:flex;
+  }
+
+  .container {
+    @apply relative flex-1 overflow-y-auto px-[5%];
+  }
+
+  .sub-container {
+    @apply mx-auto flex size-full flex-col py-10;
+  }
+
+  .side-img {
+    @apply hidden h-full object-cover md:block;
+  }
+
+  /* ===== Alignments ===== */
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  .flex-between {
+    @apply flex items-center justify-between;
+  }
+
+  /* ===== Composite Typography ===== */
+  .header {
+    @apply font-bold;
+    font-size: 32px;
+    line-height: 36px;
+  }
+
+  @media (min-width: 768px) {
+    .header {
+      font-size: 36px;
+      line-height: 40px;
+    }
+  }
+
+  .sub-header {
+    @apply font-bold;
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  @media (min-width: 768px) {
+    .sub-header {
+      font-size: 24px;
+      line-height: 28px;
+    }
+  }
+
+  /* ===== Forms ===== */
+  .radio-group {
+    @apply flex h-full flex-1 items-center gap-2 rounded-md border border-dashed p-3;
+  }
+
+  .checkbox-label {
+    @apply cursor-pointer text-sm font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70;
+  }
+
+  /* ===== File Upload ===== */
+  .file-upload {
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+    @apply flex cursor-pointer flex-col items-center justify-center gap-3 rounded-md border border-dashed p-5;
+  }
+
+  .file-upload_label {
+    @apply flex flex-col gap-2 text-center;
+  }
+
+  /* ===== Cards & Tables ===== */
+  .stat-card {
+    @apply flex flex-1 flex-col gap-6 rounded-2xl bg-cover p-6 shadow-lg;
+  }
+
+  .status-badge {
+    @apply flex w-fit items-center gap-2 rounded-full px-4 py-2;
+  }
+
+  .data-table {
+    @apply w-full overflow-hidden rounded-lg border shadow-lg;
+  }
+
+  .table-actions {
+    @apply flex w-full items-center justify-between p-4;
+  }
+
+  /* ===== ShadCN Overrides ===== */
+  .shad-primary-btn {
+    background-color: rgb(34 197 94) !important;
+    color: rgb(255 255 255) !important;
+  }
+
+  .shad-danger-btn {
+    background-color: rgb(185 28 28) !important;
+    color: rgb(255 255 255) !important;
+  }
+
+  .shad-gray-btn {
+    border-width: 1px !important;
+    background-color: rgb(31 41 55) !important;
+    color: rgb(255 255 255) !important;
+  }
+
+  .shad-input {
+    height: 44px !important;
+    background-color: rgb(31 41 55) !important;
+    border-color: rgb(55 65 81) !important;
+  }
+
+  .shad-input::placeholder {
+    color: rgb(107 114 128) !important;
+  }
+
+  .shad-input:focus-visible {
+    outline: 2px solid transparent !important;
+    outline-offset: 2px !important;
+    --tw-ring-offset-width: 0px !important;
+  }
+
+  .shad-textArea {
+    background-color: rgb(31 41 55) !important;
+    border-color: rgb(55 65 81) !important;
+  }
+
+  .shad-textArea::placeholder {
+    color: rgb(107 114 128) !important;
+  }
+
+  .shad-textArea:focus-visible {
+    outline: 2px solid transparent !important;
+    outline-offset: 2px !important;
+    --tw-ring-offset-width: 0px !important;
+  }
+
+  .shad-error {
+    color: rgb(248 113 113) !important;
+  }
+
+  .shad-table {
+    overflow: hidden !important;
+    border-radius: 0.5rem !important;
+  }
+
+  /* ===== Date Picker ===== */
+  .date-picker {
+    width: 100% !important;
+    height: 44px !important;
+    border-radius: 0.375rem !important;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+    font-size: 14px !important;
+    line-height: 18px !important;
+    font-weight: 500 !important;
+    background-color: rgb(31 41 55) !important;
+    outline: 2px solid transparent !important;
+    outline-offset: 2px !important;
+  }
+
+  .date-picker::placeholder {
+    color: rgb(107 114 128) !important;
+  }
+
+  /* ===== Phone Input ===== */
+  .input-phone {
+    margin-top: 0.5rem !important;
+    height: 44px !important;
+    border-radius: 0.375rem !important;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+    font-size: 0.875rem !important;
+    border-width: 1px !important;
+    background-color: rgb(31 41 55) !important;
+    border-color: rgb(55 65 81) !important;
+  }
+
+  .input-phone::placeholder {
+    color: rgb(107 114 128) !important;
+  }
+}
+
+/* =========================================================
+   THIRD-PARTY OVERRIDES
+   ========================================================= */
+.react-datepicker,
+.react-datepicker__time,
+.react-datepicker__header,
+.react-datepicker__day,
+.react-datepicker__day-name {
+  background-color: #1a1d21 !important;
+  border-color: #363a3d !important;
+  color: #abb8c4 !important;
+}
+
+.react-datepicker__day--selected {
+  background-color: #24ae7c !important;
+  color: #fff !important;
+}
+
+.PhoneInputInput {
+  background: #1a1d21;
+  outline: none;
+  font-size: 14px;
+  font-weight: 500;
+}
