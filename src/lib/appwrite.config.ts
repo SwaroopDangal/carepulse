@@ -1,19 +1,36 @@
+import "server-only";
 import * as sdk from "node-appwrite";
-export const {
-  NEXT_PUBLIC_APPWRITE_PROJECT_ID: PROJECT_ID,
-  API_KEY_SECRET,
+
+const {
+  APPWRITE_PROJECT_ID,
+  APPWRITE_API_KEY,
+  APPWRITE_ENDPOINT,
   DATABASE_ID,
-  PATIENT_TABLE_ID,
-  DOCTOR_TABLE_ID,
-  APPOINTMENT_TABLE_ID,
-  NEXT_PUBLIC_BUCKET_ID: BUCKET_ID,
-  NEXT_PUBLIC_ENDPOINT: ENDPOINT,
+  PATIENT_COLLECTION_ID,
+  DOCTOR_COLLECTION_ID,
+  APPOINTMENT_COLLECTION_ID,
+  BUCKET_ID,
 } = process.env;
 
-const client = new sdk.Client();
-client.setEndpoint(ENDPOINT!).setProject(PROJECT_ID!).setKey(API_KEY_SECRET!);
+if (!APPWRITE_ENDPOINT || !APPWRITE_PROJECT_ID || !APPWRITE_API_KEY) {
+  throw new Error("❌ Appwrite environment variables are missing");
+}
+
+const client = new sdk.Client()
+  .setEndpoint(APPWRITE_ENDPOINT)
+  .setProject(APPWRITE_PROJECT_ID)
+  .setKey(APPWRITE_API_KEY);
 
 export const databases = new sdk.Databases(client);
 export const storage = new sdk.Storage(client);
 export const users = new sdk.Users(client);
 export const messaging = new sdk.Messaging(client);
+
+export {
+  DATABASE_ID,
+  PATIENT_COLLECTION_ID,
+  DOCTOR_COLLECTION_ID,
+  APPOINTMENT_COLLECTION_ID,
+  BUCKET_ID,
+};
+  
