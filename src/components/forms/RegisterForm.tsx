@@ -1,57 +1,72 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Form, FormControl } from "../../components/ui/form";
-import CustomFormField from "../CustomFormField";
-import SubmitButton from "../SubmitButton";
-import { UserFormValidation } from "@/lib/validation";
-import { useRouter } from "next/navigation";
-import { createUser } from "@/lib/actions/patient.actions";
-import { FormFieldType } from "./PatientForm";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { Label } from "../ui/label";
-import { Doctors, GenderOptions, IdentificationTypes } from "@/constants";
 import Image from "next/image";
-import { Select, SelectContent, SelectItem } from "../ui/select";
-import FileUploader from "../FileUploader";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
+
+import { Form, FormControl } from "@/components/ui/form";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { SelectItem } from "@/components/ui/select";
+import {
+  Doctors,
+  GenderOptions,
+  IdentificationTypes,
+  PatientFormDefaultValues,
+} from "@/constants";
+import { registerPatient } from "@/lib/actions/patient.actions";
+import { PatientFormValidation } from "@/lib/validation";
+
+import "react-datepicker/dist/react-datepicker.css";
+import "react-phone-number-input/style.css";
+import CustomFormField, { FormFieldType } from "../CustomFormField";
+import FileUploader from "@/components/FileUploader";
+import SubmitButton from "../SubmitButton";
 
 const RegisterForm = ({ user }: { user: User }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  // 1. Define your form.
-  const form = useForm<z.infer<typeof UserFormValidation>>({
-    resolver: zodResolver(UserFormValidation),
+
+  const form = useForm<z.infer<typeof PatientFormValidation>>({
+    resolver: zodResolver(PatientFormValidation),
     defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
+      ...PatientFormDefaultValues,
+      name: user?.name || "",
+      email: user?.email || "",
+      phone: user?.phone || "",
     },
   });
 
-  // 2. Define a submit handler.
-  async function onSubmit({
-    name,
-    email,
-    phone,
-  }: z.infer<typeof UserFormValidation>) {
+  const onSubmit: SubmitHandler<z.infer<typeof PatientFormValidation>> = async (
+    values
+  ) => {
     setIsLoading(true);
-    try {
-      const userData = {
-        name,
-        email,
-        phone,
-      };
 
-      const user = await createUser(userData);
-      if (user) router.push(`/patients/${user.$id}/register`);
-    } catch (error) {
-      console.log(error);
+    let formData: FormData | undefined;
+
+    if (values.identificationDocument?.length) {
+      const file = values.identificationDocument[0];
+
+      formData = new FormData();
+      formData.append("blobFile", file);
+      formData.append("fileName", file.name);
     }
-  }
+
+    const patient = {
+      userId: user.$id,
+      ...values,
+      identificationDocument: formData,
+    };
+    //  @ts-ignore
+    await registerPatient(patient);
+    router.push(`/patients/${user.$id}/new-appointment`);
+
+    setIsLoading(false);
+  };
+
   return (
     <Form {...form}>
       <form
@@ -119,7 +134,7 @@ const RegisterForm = ({ user }: { user: User }) => {
                   <RadioGroup
                     className="flex h-11 gap-6 xl:justify-between"
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value}
                   >
                     {GenderOptions.map((option, i) => (
                       <div key={option + i} className="radio-group">

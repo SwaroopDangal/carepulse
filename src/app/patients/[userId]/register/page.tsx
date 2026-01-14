@@ -5,8 +5,11 @@ import RegisterForm from "@/components/forms/RegisterForm";
 import { getUser } from "@/lib/actions/patient.actions";
 
 export default async function Register({
-  params: { userId },
-}: SearchParamProps) {
+  params,
+}: {
+  params: Promise<{ userId: string }>;
+}) {
+  const { userId } = await params;
   const user = await getUser(userId);
   return (
     <div className="flex h-screen max-h-screen">
