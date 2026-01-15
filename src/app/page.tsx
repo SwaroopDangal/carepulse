@@ -3,10 +3,16 @@ import { Button } from "../components/ui/button";
 import Image from "next/image";
 import PatientForm from "../components/forms/PatientForm";
 import Link from "next/link";
+import PassKeyModal from "@/components/PassKeyModal";
 
-export default function Home() {
+export default async function Home({ searchParams }: SearchParamProps) {
+  const resolvedSearchParams = await searchParams;
+
+  const isadmin = resolvedSearchParams?.admin === "true";
+
   return (
     <div className="flex h-screen max-h-screen">
+      {isadmin && <PassKeyModal />}
       <section className="remove-scrollbar container my-auto">
         <div className="sub-container max-w-[496px]">
           <Image
