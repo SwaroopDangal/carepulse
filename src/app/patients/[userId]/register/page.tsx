@@ -23,7 +23,7 @@ export default async function Register({
           />
           <RegisterForm user={user} />
           <div className="text-14-regular mt-20 flex justify-between">
-            <p className="copyright py-12">© 2024 CarePluse</p>
+            <p className="copyright text-14-regular py-12">© 2024 CarePluse</p>
           </div>
         </div>
       </section>
