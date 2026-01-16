@@ -20,80 +20,62 @@ const RequestSuccess = async ({
   );
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#0b0f14] px-4">
-      <div className="w-full max-w-xl text-center">
-        {/* Logo */}
-        <div className="mb-10 flex justify-center items-center gap-2">
+    <div className=" flex h-screen max-h-screen px-[5%]">
+      <div className="success-img">
+        <Link href="/">
           <Image
-            src="/assets/icons/logo-icon.svg"
-            alt="CarePulse"
-            width={28}
-            height={28}
+            src="/assets/icons/logo-full.svg"
+            height={1000}
+            width={1000}
+            alt="logo"
+            className="h-10 w-fit"
           />
-          <span className="text-white font-semibold text-lg">CarePulse</span>
-        </div>
+        </Link>
 
-        {/* Success Icon */}
-        <div className="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-full bg-emerald-500/20">
+        <section className="flex flex-col items-center">
           <Image
             src="/assets/gifs/success.gif"
-            alt="Success"
-            width={72}
-            height={72}
+            height={300}
+            width={280}
+            alt="success"
           />
-        </div>
+          <h2 className="header mb-6 max-w-[600px] text-center">
+            Your <span className="text-green-500">appointment request</span> has
+            been successfully submitted!
+          </h2>
+          <p>We&apos;ll be in touch shortly to confirm.</p>
+        </section>
 
-        {/* Heading */}
-        <h1 className="mb-3 text-2xl font-semibold text-white">
-          Your <span className="text-emerald-400">appointment request</span> has
-          been successfully submitted!
-        </h1>
-
-        <p className="mb-10 text-sm text-gray-400">
-          We will be in touch shortly to confirm.
-        </p>
-
-        {/* Divider */}
-        <div className="mx-auto mb-6 h-px w-3/4 bg-white/10" />
-
-        {/* Appointment Details */}
-        <div className="mb-10 flex items-center justify-center gap-6 text-sm text-gray-300">
-          <span className="text-gray-500">Requested appointment details:</span>
-
-          <div className="flex items-center gap-2">
+        <section className="request-details">
+          <p>Requested appointment details: </p>
+          <div className="flex items-center gap-3">
             <Image
               src={doctor?.image!}
-              alt="Doctor"
-              width={18}
-              height={18}
-              className="rounded-full"
+              alt="doctor"
+              width={100}
+              height={100}
+              className="size-6"
             />
-            <span>Dr. {doctor?.name}</span>
+            <p className="whitespace-nowrap">Dr. {doctor?.name}</p>
           </div>
-
-          <div className="flex items-center gap-2">
+          <div className="flex gap-2">
             <Image
               src="/assets/icons/calendar.svg"
-              alt="Calendar"
-              width={16}
-              height={16}
+              height={24}
+              width={24}
+              alt="calendar"
             />
-            <span>{formatDateTime(appointment.schedule).dateTime}</span>
+            <p> {formatDateTime(appointment.schedule).dateTime}</p>
           </div>
-        </div>
+        </section>
 
-        {/* CTA Button */}
-        <Button
-          asChild
-          className="rounded-lg bg-emerald-500 px-6 py-2 text-sm font-medium text-white hover:bg-emerald-600"
-        >
+        <Button variant="outline" className="shad-primary-btn" asChild>
           <Link href={`/patients/${userId}/new-appointment`}>
             New Appointment
           </Link>
         </Button>
 
-        {/* Footer */}
-        <p className="mt-10 text-xs text-gray-500">© 2024 CarePulse</p>
+        <p className="copyright">© 2024 CarePluse</p>
       </div>
     </div>
   );

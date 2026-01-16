@@ -208,7 +208,7 @@
   }
 
   .data-table {
-    @apply w-full overflow-hidden rounded-lg border shadow-lg;
+    @apply w-full overflow-hidden rounded-lg  shadow-lg;
   }
 
   .table-actions {
@@ -262,6 +262,18 @@
     outline-offset: 2px !important;
     --tw-ring-offset-width: 0px !important;
   }
+  .shad-dialog button:focus {
+    --tw-ring-offset-width: 0px !important;
+    box-shadow: none !important;
+  }
+
+  .shad-dialog button:focus-visible {
+    border: none !important;
+    outline: none !important;
+    --tw-ring-color: transparent !important;
+    --tw-ring-offset-width: 0px !important;
+    box-shadow: none !important;
+  }
 
   .shad-error {
     color: rgb(248 113 113) !important;
@@ -270,6 +282,59 @@
   .shad-table {
     overflow: hidden !important;
     border-radius: 0.5rem !important;
+  }
+  .shad-table-row-header {
+    border-bottom-width: 1px !important;
+    border-bottom-style: solid !important;
+    border-bottom-color: rgb(31 41 55) !important; /* dark-400 */
+    color: rgb(229 231 235) !important; /* light-200 */
+  }
+
+  .shad-table-row-header:hover {
+    background-color: transparent !important;
+  }
+  .shad-table-row {
+    border-bottom-width: 1px !important;
+    border-bottom-style: solid !important;
+    border-bottom-color: rgb(31 41 55) !important; /* dark-400 */
+    color: rgb(229 231 235) !important; /* light-200 */
+  }
+  .shad-otp {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: space-between !important;
+  }
+  .shad-otp-slot {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: rgb(55 65 81) !important; /* dark-500 */
+
+    border-radius: 0.5rem !important; /* rounded-lg */
+    width: 4rem !important; /* size-16 */
+    height: 4rem !important;
+
+    gap: 1rem !important; /* gap-4 */
+
+    font-size: 2.25rem !important; /* text-36 */
+    font-weight: 700 !important; /* bold */
+    line-height: 1 !important;
+  }
+  .shad-alert-dialog {
+    background-color: rgb(31 41 55) !important; /* dark-400 */
+
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: rgb(55 65 81) !important; /* dark-500 */
+
+    outline: none !important;
+  }
+
+  .shad-alert-dialog > * + * {
+    margin-top: 1.25rem !important; /* space-y-5 */
   }
 
   .shad-select-trigger {
@@ -280,6 +345,11 @@
   }
 
   .shad-select-content {
+    background-color: rgb(31 41 55) !important;
+    border-color: rgb(55 65 81) !important;
+    color: rgb(255 255 255) !important;
+  }
+  .shad-dialog {
     background-color: rgb(31 41 55) !important;
     border-color: rgb(55 65 81) !important;
     color: rgb(255 255 255) !important;
