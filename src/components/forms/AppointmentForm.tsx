@@ -92,7 +92,7 @@ export const AppointmentForm = ({
         }
       } else {
         const appointmentToUpdate = {
-          userId,
+          userId: appointment?.userId!,
           appointmentId: appointment?.$id!,
           appointment: {
             primaryPhysician: values.primaryPhysician,
@@ -102,6 +102,7 @@ export const AppointmentForm = ({
           },
           type,
         };
+        console.log(appointmentToUpdate);
 
         const updatedAppointment = await updateAppointment(appointmentToUpdate);
 
