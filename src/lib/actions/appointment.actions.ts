@@ -41,6 +41,7 @@ export const getRecentAppointmentList = async () => {
         Query.select([
           "$id",
           "schedule",
+          "userId",
           "status",
           "primaryPhysician",
           "patient.$id",
@@ -88,7 +89,7 @@ export const getRecentAppointmentList = async () => {
 //  SEND SMS NOTIFICATION
 export const sendSMSNotification = async (userId: string, content: string) => {
   try {
-    // https://appwrite.io/docs/references/1.5.x/server-nodejs/messaging#createSms
+    console.log("Sending SMS to user:", userId);
     const message = await messaging.createSms(
       ID.unique(),
       content,
@@ -132,9 +133,23 @@ export const updateAppointment = async ({
       appointmentId,
       appointment
     );
+    // console.log("Updated appointment:", updatedAppointment);
+    console.log({ appointmentId, userId, appointment, type });
+
     if (!updatedAppointment) {
       throw new Error("Appointment not found");
     }
+
+    const smsMessage = `Greetings from CarePulse. ${
+      type === "schedule"
+        ? `Your appointment is confirmed for ${
+            formatDateTime(appointment.schedule!).dateTime
+          } with Dr. ${appointment.primaryPhysician}`
+        : `We regret to inform that your appointment for ${
+            formatDateTime(appointment.schedule!).dateTime
+          } is cancelled. Reason:  ${appointment.cancellationReason}`
+    }.`;
+    await sendSMSNotification(userId, smsMessage);
 
     revalidatePath("/admin");
     return parseStringify(updatedAppointment);
